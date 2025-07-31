@@ -6,13 +6,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pageObjects.LoginPage;
 import pageObjects.customerPage;
+import pageObjects.searchCustomerPage;
 
 
-public class nopCommerceSteps {
+public class nopCommerceSteps extends Base {
 
-    WebDriver driver;
-    LoginPage lpage;
-    customerPage custPage;
 
 
 
@@ -123,10 +121,11 @@ public class nopCommerceSteps {
     @When("user enter customer info")
     public void user_enter_customer_info() throws InterruptedException
     {
-        custPage.setEmail("king232@gmail.com");
-        custPage.setPassword("king524");
-        custPage.setfirstName("kalyan1");
-        custPage.setCompanyName("kalyan1chit.com");
+        String email=Base.randomString()+"@gmail.com";
+        custPage.setEmail(email);
+        custPage.setPassword("king5");
+        custPage.setfirstName("kalyan5");
+        custPage.setCompanyName("kalyan5chit.com");
         custPage.setLastName("ch");
         custPage.setGender("Male");
         custPage.setcustomer_roles("Vendors");
@@ -149,6 +148,31 @@ public class nopCommerceSteps {
         Assert.assertEquals(title,"The new customer has been added successfully.");
 
     }
+
+    //search Customer By Email
+
+    @When("Enter customer Email")
+    public void enter_customer_Email() {
+
+        searchPage=new searchCustomerPage(driver);
+        searchPage.setEmail("steve_gates@nopCommerce.com");
+
+    }
+
+    @When("Click on search button")
+    public void click_on_search_button() {
+
+        searchPage.setClickSearch();
+
+    }
+
+    @Then("User should found Email in the Search table")
+    public void user_should_found_Email_in_the_Search_table() {
+
+        boolean status=searchPage.setSearchCustomerByEmail("steve_gates@nopCommerce.com");
+        Assert.assertEquals(true,status);
+    }
+
 
 
 

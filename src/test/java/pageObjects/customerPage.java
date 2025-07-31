@@ -1,5 +1,6 @@
 package pageObjects;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -134,6 +135,10 @@ public class customerPage {
     public void setcustomer_roles(String role)
     {
 
+        if(role.equals("Registered")&&role.equals("Guests"))
+        {
+            Assert.assertFalse("The customer cannot be in both Guests and 'Registered customer roles",false);
+        }
       WebElement custroles= cdriver.findElement(txt_custroles);
         Select select = new Select(custroles);
         select.selectByVisibleText(role);
